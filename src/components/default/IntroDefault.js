@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Actions from '../../actions';
 import { connect } from 'react-redux';
-
+import {IntroBuilder} from '../builder';
+let { changeModalContent }  =  Actions.modalActions.methods;
 let { toggleModal } = Actions.modalActions.methods;
 const content = {
   title: "Change Intro Section",
@@ -15,6 +16,11 @@ class IntroDefault extends Component {
   }
   openModal() {
     this.props.onToggleModal();
+    this.changeContent();
+  }
+  changeContent(){
+    const contentModal = () => <IntroBuilder />;
+    this.props.onChangeModalContent(contentModal);
   }
   render() {
     return (
@@ -30,6 +36,7 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   onToggleModal: toggleModal,
+  onChangeModalContent : changeModalContent,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(IntroDefault);

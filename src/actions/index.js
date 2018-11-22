@@ -2,7 +2,9 @@ import {
   TOGGLE_MODAL, 
   toggleModal ,
   SELECT_MODAL_BUILDER,
-  selectModalBuilder
+  selectModalBuilder,
+  changeModalContent,
+  CHANGE_MODAL_CONTENT,
 }  from './modalActions';
 
 import { 
@@ -16,11 +18,13 @@ export default {
     modalActions : {
         constants: {
             TOGGLE_MODAL : TOGGLE_MODAL,
-            SELECT_MODAL_BUILDER: SELECT_MODAL_BUILDER
+            SELECT_MODAL_BUILDER: SELECT_MODAL_BUILDER,
+            CHANGE_MODAL_CONTENT : CHANGE_MODAL_CONTENT,
         },
         methods: {
             toggleModal: toggleModal, 
-            selectModalBuilder: selectModalBuilder
+            selectModalBuilder: selectModalBuilder,
+            changeModalContent : changeModalContent,
         }
     },
     structureActions : {

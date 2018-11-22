@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {SectionBuilder} from "../builder";
 import { connect } from 'react-redux';
 import Actions from '../../actions';
+import {SectionBuilder} from '../builder';
 let { toggleModal }  =  Actions.modalActions.methods;
+let { changeModalContent }  =  Actions.modalActions.methods;
 
 
 const content = {
@@ -18,6 +19,11 @@ class SectionDefault extends Component {
   }
   openModal() {
     this.props.onToggleModal();
+    this.changeContent();
+  }
+  changeContent(){
+    const contentModal = () => <SectionBuilder />;
+    this.props.onChangeModalContent(contentModal);
   }
   render() {
     return (
@@ -55,6 +61,7 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   onToggleModal : toggleModal,
+  onChangeModalContent : changeModalContent,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(SectionDefault);

@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import Actions from '../../actions';
 import { connect } from 'react-redux';
+import {NavBuilder} from '../builder';
 let { toggleModal }  =  Actions.modalActions.methods;
-
-const content = {
-  title: "Change Navbar",
-  description: "Select Your Preferred Navbar"
-};
+let { changeModalContent }  =  Actions.modalActions.methods;
 
 class NavDefault extends Component {
   constructor(props){
@@ -15,6 +12,11 @@ class NavDefault extends Component {
   }
   openModal() {
     this.props.onToggleModal();
+    this.changeContent();
+  }
+  changeContent(){
+    const contentModal = () => <NavBuilder />;
+    this.props.onChangeModalContent(contentModal);
   }
   render() {
     return (
@@ -30,7 +32,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  onToggleModal : toggleModal,
+  onToggleModal        : toggleModal,
+  onChangeModalContent : changeModalContent,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(NavDefault);

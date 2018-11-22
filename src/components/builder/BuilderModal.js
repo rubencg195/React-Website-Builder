@@ -3,31 +3,32 @@ import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
 import {connect} from 'react-redux';
 import Actions from '../../actions';
 let { toggleModal }  =  Actions.modalActions.methods;
+let { addSection }  =  Actions.structureActions.methods;
 
 
 class BuilderModal extends Component {
   constructor(props){
     super(props);
+    this.state = {}
     this.openModal = this.openModal.bind(this);
   }
   onSave(){
-
+    this.props.onChangeSection({
+      type: "structure:widgets:NAVBAR",
+      widget: () => <h1 className="text-center">MI AMORCITO ES PAOLA</h1>
+    });
+    this.props.onToggleModal();
   }
   openModal() {
     let {changeContent, toggle} = this.props;
     // changeContent(content);
     // toggle();
     console.log('====================================');
-    console.log("SectionDefault Props", this.props, "Section Modal", this.props.modal.openModal);
+    console.log("MODAL Props ", this.props);
     console.log('====================================');
     this.props.onToggleModal();
   }
   render() {
-
-    console.log('====================================');
-    console.log("MODAL ", this.props.modal.openModal);
-    console.log('====================================');
-
     let { title, description, Builder } = this.props.content ? this.props.content : {title: "Title", description : "Description" } ;
     return (
       <Modal
@@ -36,10 +37,10 @@ class BuilderModal extends Component {
         centered>
         <ModalHeader
           toggle={this.openModal}>
-          {title}
+          Lets Build a
         </ModalHeader>
         <ModalBody>
-          {/* <Builder /> */}
+          {(this.props.modal && this.props.modal.modalContent) ? this.props.modal.modalContent() : null}
         </ModalBody> 
         <ModalFooter>
           <Button
@@ -59,8 +60,10 @@ class BuilderModal extends Component {
 }
 const mapStateToProps = state => ({
    modal: state.modal,
+   content : state.modalContent
 });
 const mapActionsToProps = {
   onToggleModal : toggleModal,
+  onChangeSection : addSection,
 };
 export default connect(mapStateToProps, mapActionsToProps)(BuilderModal);

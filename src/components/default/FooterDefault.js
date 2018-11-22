@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Actions from '../../actions';
 import { connect } from 'react-redux';
-let { toggleModal } = Actions.modalActions.methods;
+import {FooterBuilder} from '../builder';
+let { toggleModal }  =  Actions.modalActions.methods;
+let { changeModalContent }  =  Actions.modalActions.methods;
 
 const content = {
 	title: "Change Footer",
@@ -15,6 +17,11 @@ class FooterDefault extends Component {
 	}
 	openModal() {
 		this.props.onToggleModal();
+		this.changeContent();
+	}
+	changeContent(){
+	  const contentModal = () => <FooterBuilder />;
+	  this.props.onChangeModalContent(contentModal);
 	}
 	render() {
 		return (
@@ -30,6 +37,7 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
 	onToggleModal: toggleModal,
+	onChangeModalContent : changeModalContent,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(FooterDefault);
